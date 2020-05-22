@@ -12,6 +12,8 @@ How to use them? It's really simple!
 
 ---
 
-In the dataset, each row represents a sample and each column is an associated attribute label. The lst column denotes the class label. Using this toolkit, two types of preprocessing can be performed. In both the cases, the top **`n`** attributes can be chosen by either calculating the Signal to Noise (SNR) value for the two classes or simply by calculating the Standard Deviation. The output is provided as a CSV file. The original dataset is also converted from `.txt` format to `.csv` format. The top `n` selected dataset is normalized using Z-Score Normalization.
+In the dataset, each row represents a sample and each column is an associated attribute label. The last column denotes the class label. Using this toolkit, two types of preprocessing can be performed. In both the cases, the top **`n`** attributes can be chosen by either calculating the Signal to Noise (SNR) value for the two classes or simply by calculating the Standard Deviation. The output is provided as a CSV file. The original dataset is also converted from `.txt` format to `.csv` format. The top `n` selected dataset is normalized using Z-Score Normalization.
+
+This preprocessing also handles missing values within the dataset by eliminating the attribute column altogether since certain columns have a lot of missing values.
 
 > Note that now when you run the preprocessor, it also creates two associated files, one where the dataset is converted to proper CSV format and the other where a CSV file of the selected datasets are created.

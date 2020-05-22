@@ -43,5 +43,13 @@ If we have written a toolset for a certain dataset, it shall be available under 
 			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/toolkit/GSE412" target="_blank">GSE412 Toolkit</a></td>
 			<td>-</td>
 		</tr>
+		<tr>
+			<td>3</td>
+			<td>leukemia</td>
+			<td><a href="https://file.biolab.si/biolab/supp/bi-cancer/projections/info/leukemia.html" target="_blank">Biolab</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/datasets/leukemia" target="_blank">leukemia</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/toolkit/leukemia" target="_blank">leukemia Toolkit</a></td>
+			<td>-</td>
+		</tr>
 	</tbody>
 </table>
