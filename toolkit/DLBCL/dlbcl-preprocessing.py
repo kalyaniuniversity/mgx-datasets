@@ -46,7 +46,7 @@ def read_dlbcl_raw_dataset():
     global raw_data_matrix
     global progressbar_total
 
-    with open("../input/DLBCL.txt", 'r') as datafile:
+    with open("DLBCL.txt", 'r') as datafile:
         for line in datafile:
             line = line.rstrip()
             splitted_line_list = line.split("\t")
@@ -73,7 +73,7 @@ def write_as_csv():
 
     filename = "dlbcl-fl.csv"
 
-    writefile = open("../output/" + filename, 'w+')
+    writefile = open(filename, 'w+')
     write_file_content = ""
 
     for attribute in gene_attributes:
@@ -249,7 +249,7 @@ def write_to_file():
 
     filename = "dlbcl-selected-" + str(attribute_selection_count) + ".csv"
 
-    writefile = open("../input/" + filename, 'w+')
+    writefile = open(filename, 'w+')
     write_file_content = ""
 
     for attribute in selected_gene_attributes:
