@@ -1,4 +1,4 @@
-## DLBCL / FL Dataset
+## Leukemia Dataset
 
 ---
 

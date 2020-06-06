@@ -48,7 +48,7 @@ def read_mll_leukemia_raw_dataset():
     global raw_data_matrix
     global progressbar_total
 
-    with open("../input/mll_leukemia.txt", "r") as dataset:
+    with open("../datasets/mll_leukemia.txt", "r") as dataset:
         for line in dataset:
             raw_data_matrix.append(line.rstrip())
 
@@ -181,7 +181,7 @@ def write_as_csv():
 
     filename = "mll-leukemia.csv"
 
-    writefile = open("../output/" + filename, "w+")
+    writefile = open("../datasets/" + filename, "w+")
     write_file_content = ""
 
     for attribute in gene_attributes:
@@ -327,7 +327,7 @@ def write_to_file():
 
     filename = "mll-leukemia-selected-" + str(attribute_selection_count) + ".csv"
 
-    writefile = open("../input/" + filename, 'w+')
+    writefile = open("../datasets/preprocessed/" + filename, 'w+')
     write_file_content = ""
 
     for attribute in selected_gene_attributes:

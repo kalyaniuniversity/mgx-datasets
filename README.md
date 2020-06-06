@@ -5,10 +5,10 @@ A list of publicly available Microarray Gene Expression datasets with proper att
 **Please note that even though this repository is free to use and modify under MIT License, but the individual datasets referenced here may be conducted under their own licencing terms.**
 
 ## Datasets
-If we are keeping a copy of the dataset with this repository, it shall be available in the `datasets` folder. Please check the reference table below to find whether we keep a copy of the dataset uder the `Dataset` tab.
+If we are keeping a copy of the dataset with this repository, it shall be available in the `datasets` folder of each named dataset. Please check the reference table below to find whether we keep a copy of the dataset uder the `Dataset` tab.
 
 ## Toolkit
-If we have written a toolset for a certain dataset, it shall be available under the `toolkit` folder. Please check the reference table below to find whether a certain dataset has any associated toolset under the `Tools` tab.
+If we have written a toolset for a certain dataset, it shall be available under the `toolkit` folder of each named dataset. Please check the reference table below to find whether a certain dataset has any associated toolset under the `Tools` tab.
 
 ## REFERENCE TABLE
 

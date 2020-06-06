@@ -17,6 +17,7 @@ attribute_selection_count = 100
 ALL_count = 0
 AML_count = 0
 progressbar_total = 9
+preprocessing_switch = 1
 
 def transfer_list(source, destination):
 
@@ -27,6 +28,7 @@ def take_user_input():
 
     global attribute_selection_count
     global progressbar_total
+    global preprocessing_switch
 
     selection_count = input("Enter the number of gene attributes to select (default is " + str(attribute_selection_count) + "): ")
 
@@ -34,6 +36,11 @@ def take_user_input():
         selection_count = "100"
 
     attribute_selection_count = int(selection_count)
+    preprocessing_choice = input(
+        "Enter your pre-processing choice. Select 1 for SD and 2 for |SNR| (defult is 1): ")
+
+    if not preprocessing_choice:
+        preprocessing_choice = 1
 
     progressbar.show(0, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
@@ -42,7 +49,7 @@ def read_leukemia_raw_dataset():
     global raw_data_matrix
     global progressbar_total
 
-    with open("../input/leukemia.txt", 'r') as datafile:
+    with open("../datasets/leukemia.txt", 'r') as datafile:
         for line in datafile:
             line = line.rstrip()
             splitted_line_list = line.split("\t")
@@ -95,7 +102,7 @@ def write_as_csv():
 
     filename = "leukemia.csv"
 
-    writefile = open("../output/" + filename, 'w+')
+    writefile = open("../datasets/" + filename, 'w+')
     write_file_content = ""
 
     for attribute in gene_attributes:
@@ -155,6 +162,42 @@ def normalize_data():
             data_matrix[sample_index][attribute_index] = normalized_attribute_list[sample_index]
 
     progressbar.show(6, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+def sort_by_preprocessing_rule():
+
+    global preprocessing_switch
+
+    if preprocessing_switch == 1:
+        sort_by_standard_deviation()
+    else:
+        sort_by_SNR()
+
+def sort_by_standard_deviation():
+
+    global data_matrix
+    global ALL_count
+    global snr_tuples
+    global progressbar_total
+
+    sample_length = len(data_matrix[0])
+    sample_count = len(data_matrix)
+
+    for attribute_index in range(sample_length - 1):
+
+        attribute_list = list()
+
+        for sample_index in range(sample_count):
+            attribute_list.append(data_matrix[sample_index][attribute_index])
+
+        sd_value = statistics.standard_deviation(
+            attribute_list[:ALL_count]) + statistics.standard_deviation(attribute_list[(ALL_count + 1):])
+        rounded_sd = math.ceil(sd_value * 10000) / 10000
+        snr_tuples.append((attribute_index, rounded_sd))
+
+    sort.randomized_quick_sort_for_tuples(snr_tuples, 0, len(snr_tuples) - 1)
+
+    progressbar.show(7, progressbar_total, prefix='Progress:',
+                     suffix='Complete', length=50)
 
 def sort_by_SNR():
 
@@ -223,7 +266,7 @@ def write_to_file():
 
     filename = "leukemia-selected-" + str(attribute_selection_count) + ".csv"
 
-    writefile = open("../input/" + filename, 'w+')
+    writefile = open("../datasets/preprocessed/" + filename, 'w+')
     write_file_content = ""
 
     for attribute in selected_gene_attributes:

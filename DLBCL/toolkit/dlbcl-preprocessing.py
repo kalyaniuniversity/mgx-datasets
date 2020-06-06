@@ -1,5 +1,6 @@
 import copy
 import math
+import random
 import progressbar
 import statistics
 import snr
@@ -14,14 +15,16 @@ gene_attributes = list()
 selected_gene_attributes = list()
 snr_tuples = list()
 attribute_selection_count = 100
-before_th_count = 0
-after_th_count = 0
-progressbar_total = 10
+DLBCL_count = 0
+FL_count = 0
+progressbar_total = 9
+preprocessing_switch = 1
 
 def take_user_input():
 
     global attribute_selection_count
     global progressbar_total
+    global preprocessing_switch
 
     selection_count = input("Enter the number of gene attributes to select (default is " + str(attribute_selection_count) + "): ")
 
@@ -29,15 +32,21 @@ def take_user_input():
         selection_count = "100"
 
     attribute_selection_count = int(selection_count)
+    preprocessing_choice = input("Enter your pre-processing choice. Select 1 for SD and 2 for |SNR| (defult is 1): ")
+
+    if not preprocessing_choice:
+        preprocessing_choice = 1
+
+    preprocessing_switch = int(preprocessing_choice)
 
     progressbar.show(0, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
-def read_childall_raw_dataset():
+def read_dlbcl_raw_dataset():
 
     global raw_data_matrix
     global progressbar_total
 
-    with open("../input/ChildALL.txt", 'r') as datafile:
+    with open("../datasets/DLBCL.txt", 'r') as datafile:
         for line in datafile:
             line = line.rstrip()
             splitted_line_list = line.split("\t")
@@ -50,11 +59,12 @@ def tidy_raw_dataset():
     global raw_data_matrix
     global data_matrix
     global gene_attributes
+    global progressbar_total
 
     gene_attributes = raw_data_matrix[0][:-1]
     data_matrix = raw_data_matrix[3:]
 
-    progressbar.show(2, 9, prefix = 'Progress:', suffix = 'Complete', length = 50)
+    progressbar.show(2, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
 def write_as_csv():
 
@@ -62,9 +72,9 @@ def write_as_csv():
     global gene_attributes
     global progressbar_total
 
-    filename = "child-all.csv"
+    filename = "dlbcl-fl.csv"
 
-    writefile = open("../output/" + filename, 'w+')
+    writefile = open("../datasets/" + filename, 'w+')
     write_file_content = ""
 
     for attribute in gene_attributes:
@@ -90,45 +100,18 @@ def write_as_csv():
 def count_class_strength():
 
     global data_matrix
-    global before_th_count
-    global after_th_count
+    global DLBCL_count
+    global FL_count
     global progressbar_total
 
     for sample in data_matrix:
-        if sample[-1] == "before Th":
-            before_th_count += 1
-        elif sample[-1] == "after Th":
-            after_th_count += 1
+        if sample[-1] == "DLBCL":
+            DLBCL_count += 1
+        elif sample[-1] == "FL":
+            FL_count += 1
 
     progressbar.show(4, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
-
-def handle_missing_values():
-
-    global data_matrix
-    global gene_attributes
-    global progressbar_total
-
-    missing_attribute_indices = list()
-    third_sample = data_matrix[2]
-    shift_counter = 0
-
-    for attribute_index in range(len(third_sample)):
-        if third_sample[attribute_index] == '?':
-            missing_attribute_indices.append(attribute_index)
-
-    for index in range(len(missing_attribute_indices)):
-        missing_attribute_indices[index] = missing_attribute_indices[index] - shift_counter
-        shift_counter += 1
-
-    for index in missing_attribute_indices:
-        gene_attributes.pop(index)
-
-    for sample in data_matrix:
-        for index in missing_attribute_indices:
-            sample.pop(index)
-
-    progressbar.show(5, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
-
+    
 def convert_datapoints_to_number():
 
     global data_matrix
@@ -138,7 +121,7 @@ def convert_datapoints_to_number():
         for index in range(len(sample) - 1):
             sample[index] = float(sample[index])
 
-    progressbar.show(6, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
+    progressbar.show(5, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
 def normalize_data():
 
@@ -159,18 +142,52 @@ def normalize_data():
         for attribute in attribute_list:
             
             z_score = zscore.calculate_zscore(attribute, attribute_list)
-            rounded_zscore = math.ceil(z_score * 100000) / 100000
+            rounded_zscore = math.ceil(z_score * 10000) / 10000
             normalized_attribute_list.append(rounded_zscore)
 
         for sample_index in range(sample_count):
             data_matrix[sample_index][attribute_index] = normalized_attribute_list[sample_index]
+
+    progressbar.show(6, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
+
+def sort_by_preprocessing_rule():
+
+    global preprocessing_switch
+
+    if preprocessing_switch == 1:
+        sort_by_standard_deviation()
+    else:
+        sort_by_SNR()
+
+def sort_by_standard_deviation():
+    
+    global data_matrix
+    global DLBCL_count
+    global snr_tuples
+    global progressbar_total
+    
+    sample_length = len(data_matrix[0])
+    sample_count = len(data_matrix)
+
+    for attribute_index in range(sample_length - 1):
+
+        attribute_list = list()
+
+        for sample_index in range(sample_count):
+            attribute_list.append(data_matrix[sample_index][attribute_index])
+
+        sd_value = statistics.standard_deviation(attribute_list[:DLBCL_count]) + statistics.standard_deviation(attribute_list[(DLBCL_count + 1):])
+        rounded_sd = math.ceil(sd_value * 10000) / 10000
+        snr_tuples.append((attribute_index, rounded_sd))
+
+    sort.randomized_quick_sort_for_tuples(snr_tuples, 0, len(snr_tuples) - 1)
 
     progressbar.show(7, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
 def sort_by_SNR():
 
     global data_matrix
-    global after_th_count
+    global DLBCL_count
     global snr_tuples
     global progressbar_total
 
@@ -184,13 +201,13 @@ def sort_by_SNR():
         for sample_index in range(sample_count):
             attribute_list.append(data_matrix[sample_index][attribute_index])
 
-        snr_value = snr.mod_SNR(attribute_list[:after_th_count], attribute_list[after_th_count:])
-        rounded_snr = math.ceil(snr_value * 10000) / 10000
+        snr_value = snr.mod_SNR(attribute_list[:DLBCL_count], attribute_list[DLBCL_count:])
+        rounded_snr = math.ceil(snr_value * 1000) / 1000
         snr_tuples.append((attribute_index, rounded_snr))
 
     sort.randomized_quick_sort_for_tuples(snr_tuples, 0, len(snr_tuples) - 1)
 
-    progressbar.show(8, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
+    progressbar.show(7, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
 def prepare_selected_dataset():
 
@@ -222,7 +239,7 @@ def prepare_selected_dataset():
         
         flag = 1
 
-    progressbar.show(9, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
+    progressbar.show(8, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
 def write_to_file():
 
@@ -231,9 +248,9 @@ def write_to_file():
     global attribute_selection_count
     global progressbar_total
 
-    filename = "child-all-selected-" + str(attribute_selection_count) + ".csv"
+    filename = "dlbcl-selected-" + str(attribute_selection_count) + ".csv"
 
-    writefile = open("../input/" + filename, 'w+')
+    writefile = open("../datasets/preprocessed/" + filename, 'w+')
     write_file_content = ""
 
     for attribute in selected_gene_attributes:
@@ -254,20 +271,19 @@ def write_to_file():
     writefile.write(write_file_content)
     writefile.close()
 
-    progressbar.show(10, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
+    progressbar.show(9, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
     print("The pre-processed data has been saved in the file: ", filename, "!", end = "\n")
 
 def main():
 
     take_user_input()
-    read_childall_raw_dataset()
+    read_dlbcl_raw_dataset()
     tidy_raw_dataset()
     write_as_csv()
     count_class_strength()
-    handle_missing_values()
     convert_datapoints_to_number()
     normalize_data()
-    sort_by_SNR()
+    sort_by_preprocessing_rule()
     prepare_selected_dataset()
     write_to_file()
 
