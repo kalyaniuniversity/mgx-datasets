@@ -36,8 +36,7 @@ def take_user_input():
         selection_count = "100"
 
     attribute_selection_count = int(selection_count)
-    preprocessing_choice = input(
-        "Enter your pre-processing choice. Select 1 for SD and 2 for |SNR| (defult is 1): ")
+    preprocessing_choice = input("Enter your pre-processing choice. Select 1 for SD and 2 for |SNR| (defult is 1): ")
 
     if not preprocessing_choice:
         preprocessing_choice = 1
@@ -182,7 +181,7 @@ def sort_by_standard_deviation():
     sample_length = len(data_matrix[0])
     sample_count = len(data_matrix)
 
-    for attribute_index in range(sample_length - 1):
+    for attribute_index in range(1, sample_length):
 
         attribute_list = list()
 
@@ -299,7 +298,7 @@ def main():
     write_as_csv()
     convert_datapoints_to_number()
     normalize_data()
-    sort_by_SNR()
+    sort_by_preprocessing_rule()
     prepare_selected_dataset()
     write_to_file()
 

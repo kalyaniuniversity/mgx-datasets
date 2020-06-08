@@ -17,11 +17,13 @@ attribute_selection_count = 100
 before_th_count = 0
 after_th_count = 0
 progressbar_total = 10
+preprocessing_switch = 1
 
 def take_user_input():
 
     global attribute_selection_count
     global progressbar_total
+    global preprocessing_switch
 
     selection_count = input("Enter the number of gene attributes to select (default is " + str(attribute_selection_count) + "): ")
 
@@ -29,6 +31,7 @@ def take_user_input():
         selection_count = "100"
 
     attribute_selection_count = int(selection_count)
+    preprocessing_choice = input("Enter your pre-processing choice. Select 1 for SD and 2 for |SNR| (defult is 1): ")
 
     progressbar.show(0, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
@@ -167,6 +170,42 @@ def normalize_data():
 
     progressbar.show(7, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
+def sort_by_preprocessing_rule():
+
+    global preprocessing_switch
+
+    if preprocessing_switch == 1:
+        sort_by_standard_deviation()
+    else:
+        sort_by_SNR()
+
+def sort_by_standard_deviation():
+
+    global data_matrix
+    global after_th_count
+    global snr_tuples
+    global progressbar_total
+
+    sample_length = len(data_matrix[0])
+    sample_count = len(data_matrix)
+
+    for attribute_index in range(sample_length - 1):
+
+        attribute_list = list()
+
+        for sample_index in range(sample_count):
+            attribute_list.append(data_matrix[sample_index][attribute_index])
+
+        sd_value = statistics.standard_deviation(
+            attribute_list[:after_th_count]) + statistics.standard_deviation(attribute_list[(after_th_count + 1):])
+        rounded_sd = math.ceil(sd_value * 10000) / 10000
+        snr_tuples.append((attribute_index, rounded_sd))
+
+    sort.randomized_quick_sort_for_tuples(snr_tuples, 0, len(snr_tuples) - 1)
+
+    progressbar.show(7, progressbar_total, prefix='Progress:',
+                     suffix='Complete', length=50)
+
 def sort_by_SNR():
 
     global data_matrix
@@ -267,7 +306,7 @@ def main():
     handle_missing_values()
     convert_datapoints_to_number()
     normalize_data()
-    sort_by_SNR()
+    sort_by_preprocessing_rule()
     prepare_selected_dataset()
     write_to_file()
 
