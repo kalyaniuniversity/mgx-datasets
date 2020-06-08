@@ -132,6 +132,38 @@ def handle_missing_values():
 
     progressbar.show(5, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
+def write_no_missing_value_as_csv():
+
+    global data_matrix
+    global gene_attributes
+    global progressbar_total
+
+    filename = "child-all-no-missing-values.csv"
+
+    writefile = open("../datasets/preprocessed/" + filename, 'w+')
+    write_file_content = ""
+
+    for attribute in gene_attributes:
+        write_file_content += attribute + ","
+
+    write_file_content += "class\n"
+
+    for sample in data_matrix:
+
+        line = ""
+
+        for value in sample[:-1]:
+            line += str(value) + ","
+
+        line += sample[-1] + "\n"
+        write_file_content += line
+
+    writefile.write(write_file_content)
+    writefile.close()
+
+    progressbar.show(3, progressbar_total, prefix='Progress:',
+                     suffix='Complete', length=50)
+
 def convert_datapoints_to_number():
 
     global data_matrix
@@ -304,6 +336,7 @@ def main():
     write_as_csv()
     count_class_strength()
     handle_missing_values()
+    write_no_missing_value_as_csv()
     convert_datapoints_to_number()
     normalize_data()
     sort_by_preprocessing_rule()
