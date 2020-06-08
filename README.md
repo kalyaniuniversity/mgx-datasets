@@ -31,32 +31,32 @@ If we have written a toolset for a certain dataset, it shall be available under 
 			<td>1</td>
 			<td>DLBCL</td>
 			<td><a href="https://file.biolab.si/biolab/supp/bi-cancer/projections/info/DLBCL.html" target="_blank">Biolab</a></td>
-			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/datasets/DLBCL" target="_blank">DLBCL/FL</a></td>
-			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/toolkit/DLBCL" target="_blank">DLBCL Toolkit</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/DLBCL/datasets" target="_blank">DLBCL/FL</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/DLBCL/toolkit" target="_blank">DLBCL Toolkit</a></td>
 			<td>-</td>
 		</tr>
 		<tr>
 			<td>2</td>
 			<td>GSE412</td>
 			<td><a href="https://file.biolab.si/biolab/supp/bi-cancer/projections/info/ALLGSE412_pred_poTh.html" target="_blank">Biolab</a></td>
-			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/datasets/GSE412" target="_blank">GSE412 (ChildALL)</a></td>
-			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/toolkit/GSE412" target="_blank">GSE412 Toolkit</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/GSE412/datasets" target="_blank">GSE412 (ChildALL)</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/GSE412/toolkit" target="_blank">GSE412 Toolkit</a></td>
 			<td>-</td>
 		</tr>
 		<tr>
 			<td>3</td>
 			<td>leukemia</td>
 			<td><a href="https://file.biolab.si/biolab/supp/bi-cancer/projections/info/leukemia.html" target="_blank">Biolab</a></td>
-			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/datasets/leukemia" target="_blank">leukemia</a></td>
-			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/toolkit/leukemia" target="_blank">leukemia Toolkit</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/leukemia/datasets" target="_blank">leukemia</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/leukemia/toolkit" target="_blank">leukemia Toolkit</a></td>
 			<td>-</td>
 		</tr>
 		<tr>
 			<td>4</td>
 			<td>MLL</td>
 			<td><a href="https://file.biolab.si/biolab/supp/bi-cancer/projections/info/MLL.html" target="_blank">Biolab</a></td>
-			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/datasets/MLL" target="_blank">MLL</a></td>
-			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/toolkit/MLL" target="_blank">MLL Toolkit</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/MLL/datasets" target="_blank">MLL</a></td>
+			<td><a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/MLL/toolkit" target="_blank">MLL Toolkit</a></td>
 			<td>-</td>
 		</tr>
 	</tbody>

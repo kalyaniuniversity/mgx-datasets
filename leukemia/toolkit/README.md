@@ -2,7 +2,7 @@
 
 ---
 
-Python program(s) to be used as reference for preprocessing the <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/datasets/leukemia/leukemia.txt" target="_blank">leukemia.txt</a> dataset.
+Python program(s) to be used as reference for preprocessing the <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/leukemia/datasets/leukemia.txt" target="_blank">leukemia.txt</a> dataset.
 <br/><br/>
 How to use them? It's really simple!
 <br/></br>

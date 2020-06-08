@@ -2,7 +2,7 @@
 
 ---
 
-Python program(s) to be used as reference for preprocessing the <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/datasets/GSE412/ChildALL.txt" target="_blank">ChildALL.txt</a> dataset.
+Python program(s) to be used as reference for preprocessing the <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/GSE412/datasets/ChildALL.txt" target="_blank">ChildALL.txt</a> dataset.
 <br/><br/>
 How to use them? It's really simple!
 <br/></br>

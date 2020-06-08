@@ -6,4 +6,4 @@
 
 ---
 
-Toolkit for this dataset is available <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/toolkit/leukemia" target="_blank">here</a>. View the toolkit section for more information.
+Toolkit for this dataset is available <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/leukemia/toolkit" target="_blank">here</a>. View the toolkit section for more information.

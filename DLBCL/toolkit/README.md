@@ -2,7 +2,7 @@
 
 ---
 
-Python program(s) to be used as reference for preprocessing the <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/datasets/DLBCL/DLBCL.txt" target="_blank">DLBCL.txt</a> dataset.
+Python program(s) to be used as reference for preprocessing the <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/DLBCL/datasets/DLBCL.txt" target="_blank">DLBCL.txt</a> dataset.
 <br/><br/>
 How to use them? It's really simple!
 <br/></br>

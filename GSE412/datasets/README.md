@@ -6,4 +6,4 @@
 
 ---
 
-Toolkit for this dataset is available <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/toolkit/GSE412" target="_blank">here</a>. View the toolkit section for more information.
+Toolkit for this dataset is available <a href="https://github.com/kalyaniuniversity/mgx-datasets/tree/master/GSE412/toolkit" target="_blank">here</a>. View the toolkit section for more information.
