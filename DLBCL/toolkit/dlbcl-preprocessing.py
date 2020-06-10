@@ -247,8 +247,10 @@ def write_to_file():
     global selected_gene_attributes
     global attribute_selection_count
     global progressbar_total
+    global preprocessing_switch
 
-    filename = "dlbcl-selected-" + str(attribute_selection_count) + ".csv"
+    preprocess_type = "-sd" if preprocessing_switch == 1 else "-snr"
+    filename = "dlbcl-selected-" + str(attribute_selection_count) + preprocess_type + ".csv"
 
     writefile = open("../datasets/preprocessed/" + filename, 'w+')
     write_file_content = ""

@@ -33,6 +33,11 @@ def take_user_input():
     attribute_selection_count = int(selection_count)
     preprocessing_choice = input("Enter your pre-processing choice. Select 1 for SD and 2 for |SNR| (defult is 1): ")
 
+    if not preprocessing_choice:
+        preprocessing_choice = 1
+
+    preprocessing_switch = int(preprocessing_choice)
+
     progressbar.show(0, progressbar_total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
 def read_childall_raw_dataset():
@@ -301,8 +306,10 @@ def write_to_file():
     global selected_gene_attributes
     global attribute_selection_count
     global progressbar_total
+    global preprocessing_switch
 
-    filename = "child-all-selected-" + str(attribute_selection_count) + ".csv"
+    preprocess_type = "-sd" if preprocessing_switch == 1 else "-snr"
+    filename = "child-all-selected-" + str(attribute_selection_count) + preprocess_type + ".csv"
 
     writefile = open("../datasets/preprocessed/" + filename, 'w+')
     write_file_content = ""
