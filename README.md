@@ -1,3 +1,9 @@
+![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3964223.svg)
+
+> *Cite this repository:*
+>
+> Ayan Kumar Saha, & Debabrata Acharya. (2020, July 28). kalyaniuniversity/mgx-datasets: Publicly available Microarray Gene Expression Datasets (Version 0.3). Zenodo. http://doi.org/10.5281/zenodo.3964223
+
 # mgx-datasets
 A list of publicly available Microarray Gene Expression datasets with proper attribution and associated toolkits.
 
